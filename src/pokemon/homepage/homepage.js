@@ -19,6 +19,8 @@ const useStyle = makeStyles(theme => ({
     paddingTop: "20px",
     paddingLeft: "50px",
     paddingRight: "50px",
+    maxWidth: "1200px",
+    margin: "0 auto"
   },
   toolbar:{
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -130,7 +132,7 @@ const Homepage = (props) => {
       let newNumber;
       if(number<10){ newNumber = `#00${number}`}
       if(number>=10 && number<100){ newNumber = `#0${number}`}
-      if(number.length>=100){ newNumber = `#${number}`}
+      if(number>=100){ newNumber = `#${number}`}
       return newNumber
     }
     // const index = showThreeDigits(id)

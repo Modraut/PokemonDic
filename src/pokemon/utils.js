@@ -15,7 +15,7 @@ export const firstLetterUppercase = (name) =>{
 */
 export const getPokemonList = async ( setIsLoading )=>{
 
-  const results = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100').then(res=> res.data.results);
+  const results = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=150').then(res=> res.data.results);
   let promises = [];
   const pokemonList =[];
   results.forEach((pokemon, index)=>{
