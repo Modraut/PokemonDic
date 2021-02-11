@@ -9,11 +9,12 @@ import './homepage.scss';
 import { Star } from '@material-ui/icons';
 
 import { Sort } from './sort'
+import { Fragment } from 'react';
 
 const useStyle = makeStyles(theme => ({
   appbar:{
     backgroundColor: "#524da2",
-    minWidth: "650px"
+    minWidth: "500px"
   },
   pokemonDicContainer:{
     paddingTop: "20px",
@@ -85,7 +86,7 @@ const Homepage = (props) => {
   };
   
   const handleSearchChange = (e) => {
-    setFilter(e.target.value)
+    setFilter(e.target.value.toLowerCase())
   }
 
   
@@ -93,7 +94,7 @@ const Homepage = (props) => {
     e.stopPropagation();
     const newFavorites = [...favorites];
     const index = newFavorites.indexOf(name);
-    if(index!=-1){
+    if(index!==-1){
       newFavorites.splice(index,1)
     } else{
       newFavorites.push(name);
@@ -151,7 +152,7 @@ const Homepage = (props) => {
           <CardHeader
             action={
               <IconButton
-                className={ favorites.indexOf(name) != -1 && classes.stars}
+                className={ favorites.indexOf(name) !== -1 && classes.stars}
                 onClick={(e)=> toggleFavorites(e, name )}
               >
                 <Star />
@@ -185,7 +186,7 @@ const Homepage = (props) => {
           if(showFavorites){
             return (
               pokemon.name.includes(filter) &&
-              favorites.indexOf(pokemon.name)!=-1 &&
+              favorites.indexOf(pokemon.name)!==-1 &&
               PokemonCard(pokemon)
             )
           }else{
@@ -214,7 +215,7 @@ const Homepage = (props) => {
               <Button
                 onClick={handleMenu}
               >
-                My Favorites 
+                My Favorites
                 <Star className={classes.stars} />
               </Button>
               <Menu
