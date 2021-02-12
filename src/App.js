@@ -4,8 +4,8 @@ import React, { useState, createContext, userContext, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 
 import { createBrowserHistory } from 'history';
-import Homepage from './pokemon/homepage/homepage.js';
-import Pokemon from './pokemon/pokemonDetails/pokemon.js';
+import Homepage from './pages/homepage/homepage.js';
+import Pokemon from './pages/pokemonDetails/pokemon.js';
 
 
 

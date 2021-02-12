@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { fade, AppBar, Avatar, Card, CardContent, CardHeader, CardMedia, CircularProgress, Grid, IconButton, makeStyles, Tab, Tabs, TextField, Toolbar, CardActions, Button, Typography, Menu, MenuItem } from '@material-ui/core';
+import { fade, AppBar, CircularProgress, makeStyles, TextField, Toolbar, Button, Typography, Menu, MenuItem } from '@material-ui/core';
 import SearchIcon from "@material-ui/icons/Search"
 
-import { firstLetterUppercase, getPokemonList, getStats } from "../utils";
+import { getPokemonList} from "../../utils";
 
-import axios from "axios";
 import './homepage.scss';
 import { Star } from '@material-ui/icons';
 
 import { Sort } from './sort'
-import { Fragment } from 'react';
+import Cards from './components/cards';
+
+import hanalei from 'common/fonts/Hanalei-Regular.ttf'
+import stalinistOne from 'common/fonts/StalinistOne-Regular.ttf'
 
 const useStyle = makeStyles(theme => ({
   appbar:{
     backgroundColor: "#524da2",
-    minWidth: "500px"
+    [theme.breakpoints.up('sm')]:{
+      minWidth: "550px",
+    },
+  },
+  title: {
+    fontFamily: `'stalinist One','cursive'`,
+    fontSize: "1.5rem"
   },
   pokemonDicContainer:{
     paddingTop: "20px",
@@ -38,7 +46,7 @@ const useStyle = makeStyles(theme => ({
     paddingLeft: "20px",
     paddingRight: "20px",
     marginTop: "5px",
-    marginBottom: "5px",
+    marginBottom: "2rem",
   },
   searchIcon: {
     alignSelf: "flex-end",
@@ -48,14 +56,16 @@ const useStyle = makeStyles(theme => ({
     width: "200px",
     margin: "5px"
   },
+  addition: {
+    [theme.breakpoints.up('sm')]:{
+      display: "flex",
+      alignItems: "baseline",
+    },
+    minWidth: "650px"
+  },  
   stars: {
     color: "#ffd700"
   },
-  addition: {
-    display: "flex",
-    alignItems: "baseline",
-    minWidth: "650px"
-  }
 }))
 
 
@@ -126,80 +136,8 @@ const Homepage = (props) => {
   },[])
 
 
-  const PokemonCard = ( pokemon ) => {
-    const { id, name, stats } = pokemon;
-    const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-    const showThreeDigits = (number) => {
-      let newNumber;
-      if(number<10){ newNumber = `#00${number}`}
-      if(number>=10 && number<100){ newNumber = `#0${number}`}
-      if(number>=100){ newNumber = `#${number}`}
-      return newNumber
-    }
-    // const index = showThreeDigits(id)
-    return (
-      <Grid 
-        item
-        xs={3}
-        className="card"
-        style={{ minWidth: "250px", maxWidth: "250px" }}
-      >
-        <Card 
-          onClick={()=>{ history.push(`./${id}`) }}
-          style={{ cursor: "pointer" }}
-          // className={classes.card}
-        >
-          <CardHeader
-            action={
-              <IconButton
-                className={ favorites.indexOf(name) !== -1 && classes.stars}
-                onClick={(e)=> toggleFavorites(e, name )}
-              >
-                <Star />
-              </IconButton>
-            }
-            title={sortBy==="index"? showThreeDigits(id): stats[sortBy]} // also add # before the number
-          />
-          <CardMedia
-            image={sprite}
-            src="img"
-            style={{ width: "130px", height: "130px", margin: "auto" }}
-          />
-          <CardContent style={{ textAlign: "center" }}>
-            {`${firstLetterUppercase(name)} `}
-          </CardContent>
-        </Card>
-      </Grid>
-    )
-  }
-  const Cards = () =>{
-    return(
-      <Grid 
-        container
-        spacing={4}
-        justify="center"
-        className={classes.pokemonDicContainer}
-        wrap={"wrap"}
-      >
-      {
-        pokemonData.map(pokemon =>{
-          if(showFavorites){
-            return (
-              pokemon.name.includes(filter) &&
-              favorites.indexOf(pokemon.name)!==-1 &&
-              PokemonCard(pokemon)
-            )
-          }else{
-            return(
-              pokemon.name.includes(filter) &&
-              PokemonCard(pokemon)
-            )
-          }
-        })
-      }
-      </Grid>
-    )
-  }
+
+
 
   return (
     <>
@@ -208,9 +146,10 @@ const Homepage = (props) => {
         className={classes.appbar}
       >
         <Toolbar className={classes.toolbar}>
-          <Typography variant="h4" component="h1">
+          <Typography variant="h4" component="h1" className={classes.title} >
             PokemonDic
           </Typography>
+
           <Typography component="div">
               <Button
                 onClick={handleMenu}
@@ -260,7 +199,13 @@ const Homepage = (props) => {
       {
         !isLoading?
         (
-          Cards()
+          <Cards pokemonData={pokemonData}
+            favorites={favorites}
+            showFavorites={showFavorites}
+            sortBy={sortBy}
+            toggleFavorites={toggleFavorites}
+            filter={filter}
+          />
         ): (
           <CircularProgress />
         )

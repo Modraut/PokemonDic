@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Typography, Menu, MenuItem, makeStyles, Popover } from '@material-ui/core';
+import { Button, Typography, Menu, MenuItem, makeStyles, withStyles } from '@material-ui/core';
 
 import { FilterList } from '@material-ui/icons';
-import { firstLetterUppercase } from '../utils';
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme => ({
   sortContainer: {
     position: "relative",
-    top: "-10px"
+    top: "-10px",
+    [theme.breakpoints.down('sm')]:{
+      paddingLeft: "20px",
+    }
   },
-  menu: {
-    position: "relative",
-    left: "30px"
-  },
+
   sortBy:{
     marginLeft: "10px",
     background: "#ea6f5a",
     borderRadius: "5px",
     padding: "3px",
     width: "200px"
+  },
+  button: {
+    [theme.breakpoints.down('sm')]:{
+      padding: '0',
+      // marginTop: '1rem'
+    }
   }
-  
-})
+}))
+
+
 
 export const Sort = ( props ) => {
   const { pokemonData, setPokemonData, sortBy, setSortBy } = props;
@@ -72,6 +78,7 @@ export const Sort = ( props ) => {
     <Typography component="div" className={classes.sortContainer} >
       <Button
         onClick={handleSortMenu}
+        className={classes.button}
       >
         <FilterList style={{fontSize:"32", paddingRight:"10px"}} />
         <Typography component="span">
@@ -84,7 +91,7 @@ export const Sort = ( props ) => {
           {sortBy}
         </Typography>
       </Button>
-      <Popover className={classes.menu}
+      <Menu className={classes.menu}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
@@ -92,7 +99,7 @@ export const Sort = ( props ) => {
         }}
         keepMounted
         transformOrigin={{
-          vertical: 'bottom',
+          vertical: 'top',
           horizontal: 'left',
         }}
         open={open}
@@ -104,7 +111,10 @@ export const Sort = ( props ) => {
             <MenuItem onClick={(e)=>{sortPokemons(e);setAnchorEl(null)}}>{stat}</MenuItem>
           ))
         }
-      </Popover>
+      </Menu>
+
+
+
       </Typography>
   )
 

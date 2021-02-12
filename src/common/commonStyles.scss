@@ -1,0 +1,20 @@
+@keyframes cardEffect {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+body {
+  background-color: #87ceeb;
+  // @font-face {
+  //   font-family: 'Hanalei';
+  //   src: url('./fonts/Hanalei-Regular.ttf');
+  // }
+  // @font-face {
+  //   font-family: 'stalinist One';
+  //   src: url('./fonts/StalinistOne-Regular.ttf');
+  // }
+}

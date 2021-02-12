@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Avatar, Button, Card, CardHeader, CircularProgress, IconButton, makeStyles, Tab, Tabs, Typography } from '@material-ui/core';
 
 import { BrowserRouter as Router, Switch, Route, Redirect, Link } from "react-router-dom"
-import { firstLetterUppercase } from "../utils"
+import { firstLetterUppercase } from "../../utils"
 import axios from 'axios';
 
 
