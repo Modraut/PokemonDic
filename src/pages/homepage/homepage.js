@@ -66,6 +66,7 @@ const useStyle = makeStyles(theme => ({
   stars: {
     color: "#ffd700"
   },
+
 }))
 
 
@@ -141,7 +142,7 @@ const Homepage = (props) => {
 
   return (
     <>
-      <AppBar
+      {/* <AppBar
         position="static"
         className={classes.appbar}
       >
@@ -176,7 +177,38 @@ const Homepage = (props) => {
                 </Menu>
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
+      <header className="navbar">
+        <div className="navbar__inner">
+          <h1  className="navbar__inner__title">PokemonDic</h1>
+          <div className="navbar__inner__myFavorites">
+            <Button
+              onClick={handleMenu}
+              className={classes.button}
+            >
+              <span className="navbar__inner__myFavorites__text">My Favorites</span>
+              <Star className={classes.stars} />
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'buttom',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'buttom',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={()=>{setShowFavorites(false);setAnchorEl(null)}}>Show all</MenuItem>
+              <MenuItem onClick={()=>{setShowFavorites(true);setAnchorEl(null)}}>My favorites</MenuItem>
+            </Menu>
+          </div>
+        </div>
+      </header>
       <Typography
         component="div"
         className={classes.addition}>

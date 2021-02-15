@@ -8,8 +8,8 @@ const useStyle = makeStyles(theme => ({
 
   pokemonDicContainer:{
     paddingTop: "20px",
-    paddingLeft: "10px",
-    paddingRight: "10px",
+    paddingLeft: "40px",
+    paddingRight: "40px",
     maxWidth: "1200px",
     margin: "0 auto"
   },
