@@ -9,6 +9,7 @@ const useStyle = makeStyles(theme => ({
     top: "-10px",
     [theme.breakpoints.down('sm')]:{
       paddingLeft: "20px",
+      minWidth: '400px'
     }
   },
 
@@ -93,6 +94,7 @@ export const Sort = ( props ) => {
       </Button>
       <Menu className={classes.menu}
         anchorEl={anchorEl}
+        getContentAnchorEl={null}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',
@@ -107,8 +109,11 @@ export const Sort = ( props ) => {
       >
         <MenuItem onClick={(e)=>{sortPokemonsByIndex(e);setAnchorEl(null)}}>index</MenuItem>
         {
-          statsList.map(stat=>(
-            <MenuItem onClick={(e)=>{sortPokemons(e);setAnchorEl(null)}}>{stat}</MenuItem>
+          statsList.map((stat, index)=>(
+            <MenuItem
+              onClick={(e)=>{sortPokemons(e);setAnchorEl(null)}}
+              key={`stat-${index}`}
+            >{stat}</MenuItem>
           ))
         }
       </Menu>

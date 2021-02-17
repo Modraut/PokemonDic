@@ -11,7 +11,11 @@ const useStyle = makeStyles(theme => ({
     paddingLeft: "40px",
     paddingRight: "40px",
     maxWidth: "1200px",
-    margin: "0 auto"
+    margin: "0 auto",
+    [theme.breakpoints.down('sm')]:{
+      boxSizing: 'border-box',
+      width: "100%"
+    }
   },
 }))
 
@@ -27,7 +31,7 @@ const Cards = (props) =>{
       wrap={"wrap"}
     >
     {
-      pokemonData.map(pokemon =>{
+      pokemonData.map((pokemon, index) =>{
         if(showFavorites){
           return (
             pokemon.name.includes(filter) &&
@@ -37,6 +41,7 @@ const Cards = (props) =>{
               sortBy={sortBy}
               favorites={favorites}
               toggleFavorites={toggleFavorites}
+              key={`pokemon-${index}`}
             />
           )
         }else{
@@ -47,6 +52,7 @@ const Cards = (props) =>{
               sortBy={sortBy}
               favorites={favorites}
               toggleFavorites={toggleFavorites}
+              key={`pokemon-${index}`}
             />
           )
         }

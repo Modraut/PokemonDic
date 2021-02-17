@@ -1,0 +1,8 @@
+@import 'common/commonStyles.scss';
+@import url('https://fonts.googleapis.com/css2?family=Hanalei&family=Stalinist+One&display=swap');
+.card {
+    animation: cardEffect 0.4s linear forwards;
+
+    &__container {
+    }
+}

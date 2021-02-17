@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fade, AppBar, CircularProgress, makeStyles, TextField, Toolbar, Button, Typography, Menu, MenuItem } from '@material-ui/core';
+import { fade, AppBar, CircularProgress, makeStyles, TextField, Toolbar, Button, Typography, Menu, MenuItem, Popover } from '@material-ui/core';
 import SearchIcon from "@material-ui/icons/Search"
 
 import { getPokemonList} from "../../utils";
@@ -47,6 +47,7 @@ const useStyle = makeStyles(theme => ({
     paddingRight: "20px",
     marginTop: "5px",
     marginBottom: "2rem",
+    width: "100%"
   },
   searchIcon: {
     alignSelf: "flex-end",
@@ -60,8 +61,8 @@ const useStyle = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]:{
       display: "flex",
       alignItems: "baseline",
+      minWidth: "650px"
     },
-    minWidth: "650px"
   },  
   stars: {
     color: "#ffd700"
@@ -180,7 +181,9 @@ const Homepage = (props) => {
       </AppBar> */}
       <header className="navbar">
         <div className="navbar__inner">
-          <h1  className="navbar__inner__title">PokemonDic</h1>
+          <a  className="navbar__inner__title" href='/'>
+            <h1 className="navbar__inner__title">PokemonDic</h1>
+          </a>
           <div className="navbar__inner__myFavorites">
             <Button
               onClick={handleMenu}
@@ -189,15 +192,15 @@ const Homepage = (props) => {
               <span className="navbar__inner__myFavorites__text">My Favorites</span>
               <Star className={classes.stars} />
             </Button>
-            <Menu
+            <Popover
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: 'buttom',
+                vertical: 'bottom',
                 horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'buttom',
+                vertical: 'bottom',
                 horizontal: 'right',
               }}
               open={open}
@@ -205,13 +208,14 @@ const Homepage = (props) => {
             >
               <MenuItem onClick={()=>{setShowFavorites(false);setAnchorEl(null)}}>Show all</MenuItem>
               <MenuItem onClick={()=>{setShowFavorites(true);setAnchorEl(null)}}>My favorites</MenuItem>
-            </Menu>
+            </Popover>
           </div>
         </div>
       </header>
       <Typography
         component="div"
-        className={classes.addition}>
+        className={classes.addition}
+      >
         <div className={classes.searchContainer}>
           <SearchIcon className={classes.searchIcon}/>
           <TextField 

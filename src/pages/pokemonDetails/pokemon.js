@@ -9,7 +9,6 @@ import axios from 'axios';
 
 // import "./pokemon.scss"
 
-
 const Pokemon = (props) => {
   const { match, history } = props;
   const { params } = match;
@@ -37,15 +36,14 @@ const Pokemon = (props) => {
         <Typography variant="h1">
           {`${pokemonId}. ${firstLetterUppercase(name)}`}
         </Typography>
-        <img src={fullImage} style={{ width: "360px" }}/>
+        <img className="details_image" src={fullImage} style={{ width: "360px" }}/>
         <Typography variant="h3" >
           Pokemon Info
         </Typography>
         <Typography>
-          Species: 
-          <Link href={species.url} >
-            {species.name}
-          </Link>
+          {`Species: ${firstLetterUppercase(species.name)}`}
+          {/* <Link to={species.url} >
+          </Link> */}
         </Typography>
         <Typography>Height: {height} </Typography>
         <Typography>Weight: {weight} </Typography>
