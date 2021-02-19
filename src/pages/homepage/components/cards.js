@@ -20,7 +20,7 @@ const useStyle = makeStyles(theme => ({
 }))
 
 const Cards = (props) =>{
-  const { pokemonData, favorites, showFavorites, sortBy, toggleFavorites, filter } = props
+  const { pokemonData, favorites, showFavorites, sortBy, toggleFavorites, filter, setModalId } = props
   const classes = useStyle()
   return(
     <Grid 
@@ -30,18 +30,21 @@ const Cards = (props) =>{
       className={classes.pokemonDicContainer}
       wrap={"wrap"}
     >
+
+    {/* id is the number of the pokemon while index is only the ordering of a pokemon in the pokemonData */}
     {
       pokemonData.map((pokemon, index) =>{
         if(showFavorites){
           return (
             pokemon.name.includes(filter) &&
-            favorites.indexOf(pokemon.name)!==-1 &&
+            favorites.indexOf(pokemon.id)!==-1 &&
             <PokemonCard 
               pokemon={pokemon}
               sortBy={sortBy}
               favorites={favorites}
               toggleFavorites={toggleFavorites}
               key={`pokemon-${index}`}
+              setModalId={setModalId}
             />
           )
         }else{
@@ -53,6 +56,7 @@ const Cards = (props) =>{
               favorites={favorites}
               toggleFavorites={toggleFavorites}
               key={`pokemon-${index}`}
+              setModalId={setModalId}
             />
           )
         }

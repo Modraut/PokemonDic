@@ -1,0 +1,159 @@
+@mixin pokemonBall {
+    content: '';
+    display: flex;
+    width: 100%;
+    height: 2rem;
+    box-sizing: border-box;
+    position: absolute;
+}
+$width-pokemonBall: 40em;
+$height-pokemonBall: 32em;
+
+.modal {
+    &.close {
+        display: none;
+    }
+
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: rgba($color: #000000, $alpha: 0.4);
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: 650px) {
+        font-size: 12px;
+    }
+    @media (max-width: 500px) {
+        font-size: 9px;
+    }
+
+    &__inner {
+        position: relative;
+        background: #ffaaaa;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 5px solid black;
+        box-sizing: border-box;
+        animation: pokemonBallOpen 0.5s ease-in-out forwards;
+        padding: 5em 0 2em 0;
+        &__pokemonBall__top {
+            @include pokemonBall();
+            top: 0;
+            background: #db0702;
+            border-bottom: 5px solid black;
+            justify-content: center;
+            &::after {
+                content: '';
+                width: 2.5em;
+                height: 2.5em;
+                border-radius: 50%;
+                border: 5px solid black;
+                position: absolute;
+                top: 0.5em;
+                z-index: 3;
+                background: white;
+                @media (max-width: 500px) {
+                    top: 0.75rem;
+                }
+            }
+        }
+        &__pokemonBall__bottom {
+            @include pokemonBall();
+            bottom: 0;
+            background: white;
+            border-top: 5px solid black;
+        }
+        &__content {
+            display: flex;
+            padding: 2em 1em 0 1em;
+            justify-content: space-between;
+            &__left {
+                width: 19em;
+
+                .grid {
+                    display: grid;
+                    grid-template-columns: 35% 65%;
+                    grid-gap: 1em;
+                    margin-right: 1em;
+                    row-gap: 0.75em;
+                    column-gap: 0.5em;
+                    &__item {
+                        background: #fcfcfc;
+                        line-height: 2em;
+                        font-weight: bold;
+
+                        &.header {
+                            line-height: 2em;
+                            grid-column-start: 1;
+                            grid-column-end: 3;
+                            border-radius: 5px;
+                            text-align: center;
+                            font-size: 1.5em;
+                        }
+                        &.left {
+                            border-radius: 10px 0 0 10px;
+                            text-align: center;
+                        }
+                        &.right {
+                            padding-left: 2em;
+                            border-radius: 0 10px 10px 0;
+                        }
+                        > div {
+                            display: inline-block;
+                            width: 8em;
+                            background: red;
+                            text-align: center;
+                            color: #fff;
+                            border-radius: 20px;
+                            margin-top: 0.5em;
+                            &:last-of-type {
+                                margin-bottom: 0.5em;
+                            }
+                        }
+                    }
+                }
+            }
+            &__right {
+                padding: 0 0.5em;
+                background: rgba($color: #fcfcfc, $alpha: 0.7);
+                border-radius: 20px;
+                img {
+                    width: 15em;
+                }
+            }
+        }
+    }
+}
+@keyframes pokemonBallOpen {
+    0% {
+        width: 5em;
+        height: 4em;
+    }
+    50% {
+        width: $width-pokemonBall;
+        height: 4em;
+    }
+    100% {
+        min-width: $width-pokemonBall;
+        height: $height-pokemonBall;
+    }
+}
+@keyframes pokemonBallClose {
+    //not working. to be update
+    0% {
+        transform: scale(1);
+    }
+    99% {
+        transform: scale(0);
+    }
+
+    100% {
+        display: none;
+    }
+}
+
+// Each pokemon type has a specific color

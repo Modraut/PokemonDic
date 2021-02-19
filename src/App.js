@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 
 import { createBrowserHistory } from 'history';
 import Homepage from 'pages/homepage/homepage.js';
-import Pokemon from 'pages/pokemonDetails/pokemon.js';
+import Pokemon from 'pages/homepage/components/pokemon.js';
 
 
 export default function App(){

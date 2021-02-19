@@ -2,34 +2,24 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardMedia,  Grid, IconButton, makeStyles } from '@material-ui/core';
 
 
-import { firstLetterUppercase } from "../../../utils";
+import { firstLetterUppercase, showThreeDigits } from "utils.js";
 import { Star } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
-
+import { Fragment } from 'react';
 
 
 const useStyle = makeStyles(theme => ({
   stars: {
     color: "#ffd700"
   },
-  card: {
-    // position: "absolute",
-    display: "none"
-  }
+
 }))
 const PokemonCard = ( props ) => {
-  const [ expand, setExpand ] = useState(false)
   const classes = useStyle();
-  const { pokemon, sortBy, favorites, toggleFavorites, history } = props;
+  const { pokemon, sortBy, favorites, toggleFavorites, history, setModalId } = props;
   const { id, name, stats } = pokemon;
   const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-  const showThreeDigits = (number) => {
-    let newNumber;
-    if(number<10){ newNumber = `#00${number}`}
-    if(number>=10 && number<100){ newNumber = `#0${number}`}
-    if(number>=100){ newNumber = `#${number}`}
-    return newNumber
-  }
+
   // const toggleExpansion = ( element, to, duration = 0.35 ) => {
   //   return new Promise(res => {
   //     requestAnimationFrame(()=>{
@@ -59,48 +49,44 @@ const PokemonCard = ( props ) => {
   //   cardClone.style.height = height + 'px';
   //   card.style.opacity= '0'
   //   card.parentNode.appendChild(card)
-
   // }
   // const index = showThreeDigits(id)
   return (
-    <Grid 
-      item
-      xs={3}
-      className="card"
-      style={{ minWidth: "250px", maxWidth: "250px" }}
-    >
-      <Card 
-        // onClick={()=>{history.push(`/${id}`)}}
-        onClick={()=>setExpand(!expand)}
-        style={{ cursor: "pointer" }}
-        className={expand? classes.card: ""}
+    <Fragment>
+      <Grid 
+        item
+        xs={3}
+        className="card"
+        style={{ minWidth: "250px", maxWidth: "250px" }}
       >
-        <CardHeader
-          action={
-            <IconButton
-              className={ favorites.indexOf(name) !== -1? classes.stars: ""}
-              onClick={(e)=> toggleFavorites(e, name )}
-            >
-              <Star />
-            </IconButton>
-          }
-          title={sortBy==="index"? showThreeDigits(id): stats[sortBy]} // also add # before the number
-        />
-        <CardMedia
-          image={sprite}
-          src="img"
-          style={{ width: "130px", height: "130px", margin: "auto" }}
-        />
-        <CardContent style={{ textAlign: "center" }}>
-          {`${firstLetterUppercase(name)} `}
-        </CardContent>
-      </Card>
-      <div className="card__container">
-        <div className="card__container__inner">
-          
-        </div>
-      </div>
-    </Grid>
+        <Card 
+          onClick={(e)=>setModalId(pokemon.id)}
+          style={{ cursor: "pointer" }}
+        >
+          <CardHeader
+            action={
+              <IconButton
+                className={ favorites.indexOf(id) !== -1? classes.stars: ""}
+                onClick={(e)=> toggleFavorites(e, id )}
+              >
+                <Star />
+              </IconButton>
+            }
+            title={sortBy==="index"? showThreeDigits(id): stats[sortBy]} // also add # before the number
+          />
+          <CardMedia
+            image={sprite}
+            src="img"
+            style={{ width: "130px", height: "130px", margin: "auto" }}
+          />
+          <CardContent style={{ textAlign: "center" }}>
+            {`${firstLetterUppercase(name)} `}
+          </CardContent>
+        </Card>
+
+      </Grid>
+
+    </Fragment>
   )
 }
 

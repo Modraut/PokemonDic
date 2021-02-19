@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { fade, AppBar, CircularProgress, makeStyles, TextField, Toolbar, Button, Typography, Menu, MenuItem, Popover } from '@material-ui/core';
 import SearchIcon from "@material-ui/icons/Search"
 
@@ -7,11 +7,13 @@ import { getPokemonList} from "../../utils";
 import './homepage.scss';
 import { Star } from '@material-ui/icons';
 
-import { Sort } from './sort'
+import { Sort } from './components/sort'
 import Cards from './components/cards';
 
 import hanalei from 'common/fonts/Hanalei-Regular.ttf'
 import stalinistOne from 'common/fonts/StalinistOne-Regular.ttf'
+import { Fragment } from 'react';
+import Pokemon from './components/pokemon';
 
 const useStyle = makeStyles(theme => ({
   appbar:{
@@ -47,7 +49,7 @@ const useStyle = makeStyles(theme => ({
     paddingRight: "20px",
     marginTop: "5px",
     marginBottom: "2rem",
-    width: "100%"
+    // width: "100%"
   },
   searchIcon: {
     alignSelf: "flex-end",
@@ -80,9 +82,8 @@ const Homepage = (props) => {
 
   const [ pokemonData, setPokemonData ] = useState([])
   const [ filter, setFilter ] = useState("");
-  const [ isLoading, setIsLoading ] = useState(true)
+  const [ isLoading, setIsLoading ] = useState(true)  // is the pokemonData has been loaded
   const [ sortBy, setSortBy] = useState("index"); 
-
 
   const [ favorites, setFavorites ] = useState([]);  // favorites pokemons
   const [ showFavorites, setShowFavorites ] = useState(false)
@@ -101,18 +102,17 @@ const Homepage = (props) => {
     setFilter(e.target.value.toLowerCase())
   }
 
-  
-  const toggleFavorites = ( e, name ) =>{
+  const toggleFavorites = ( e, id ) =>{
     e.stopPropagation();
     const newFavorites = [...favorites];
-    const index = newFavorites.indexOf(name);
+    const index = newFavorites.indexOf(id);
     if(index!==-1){
       newFavorites.splice(index,1)
     } else{
-      newFavorites.push(name);
+      newFavorites.push(id);
     }
     // console.log(newFavorites);
-    setFavorites(newFavorites)
+    setFavorites(newFavorites.sort())
     localStorage.setItem('favorite_pokemons', JSON.stringify(newFavorites))
   }
 
@@ -121,8 +121,7 @@ const Homepage = (props) => {
     getPokemonList( setIsLoading ).then((pokemonList)=>{
 
       setPokemonData(pokemonList);
-      // setIsLoading(false)
-
+      console.log(pokemonList);
     });
     if(!window.localStorage){
       window.alert(`Oops! seems the browse doesn't support the "favorite" function`)
@@ -137,12 +136,11 @@ const Homepage = (props) => {
     }
   },[])
 
-
-
+  const [ modalId, setModalId ] = useState(null)  // The id of the pokemon shown in the modal
 
 
   return (
-    <>
+    <div className="homepage" >
       {/* <AppBar
         position="static"
         className={classes.appbar}
@@ -241,12 +239,17 @@ const Homepage = (props) => {
             sortBy={sortBy}
             toggleFavorites={toggleFavorites}
             filter={filter}
+            setModalId={setModalId}
           />
         ): (
           <CircularProgress />
         )
       }
-    </>
+      <Pokemon
+        modalId={modalId}
+        setModalId={setModalId}
+      />
+    </div>
   )
 }
 

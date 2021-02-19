@@ -9,7 +9,7 @@ const useStyle = makeStyles(theme => ({
     top: "-10px",
     [theme.breakpoints.down('sm')]:{
       paddingLeft: "20px",
-      minWidth: '400px'
+      minWidth: '350px'
     }
   },
 
