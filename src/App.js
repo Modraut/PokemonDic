@@ -15,7 +15,6 @@ export default function App(){
           <Switch>
             <Redirect exact from="/" to="/home" />
             <Route exact path="/home" component={Homepage} />
-            <Route path="/:pokemonId" component={Pokemon} />
 
           </Switch>
 

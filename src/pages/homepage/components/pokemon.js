@@ -93,12 +93,7 @@ const Pokemon = (props) => {
     <>
       { pokemonDetails === undefined && <CircularProgress />}
       { pokemonDetails !== undefined && pokemonDetails && pokemonInfo()}
-      { pokemonDetails === false && <Typography> Pokemon not found</Typography>}
-      { pokemonDetails !== undefined && (
-        <Button variant="contained"  >
-          Back to Pokedex
-        </Button>
-      )}
+      {/* { pokemonDetails === false && <Typography> Pokemon not found</Typography>} */}
     </>
   )
 }

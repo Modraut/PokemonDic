@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { fade, AppBar, CircularProgress, makeStyles, TextField, Toolbar, Button, Typography, Menu, MenuItem, Popover } from '@material-ui/core';
+import { fade, CircularProgress, makeStyles, TextField, Button, Typography, Menu, MenuItem, Popover, FormControl, InputLabel, NativeSelect } from '@material-ui/core';
 import SearchIcon from "@material-ui/icons/Search"
 
 import { getPokemonList} from "../../utils";
@@ -88,7 +88,7 @@ const Homepage = (props) => {
   const [ favorites, setFavorites ] = useState([]);  // favorites pokemons
   const [ showFavorites, setShowFavorites ] = useState(false)
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);  // The sortBy function
   const open = Boolean(anchorEl);
 
   const handleMenu = (event) => {
@@ -116,24 +116,25 @@ const Homepage = (props) => {
     localStorage.setItem('favorite_pokemons', JSON.stringify(newFavorites))
   }
 
-  // get pokemon data
+  // get setting info from cookies
   useEffect(()=>{
-    getPokemonList( setIsLoading ).then((pokemonList)=>{
-
-      setPokemonData(pokemonList);
-      console.log(pokemonList);
-    });
     if(!window.localStorage){
       window.alert(`Oops! seems the browse doesn't support the "favorite" function`)
       return false
     } else{
       const localStorage = window.localStorage;
+      // initialize favorite pokemons
       if(localStorage.getItem('favorite_pokemons')==null){
         localStorage.setItem('favorite_pokemons', JSON.stringify([]))
       }
       const favoritePokemons = JSON.parse(localStorage.getItem('favorite_pokemons'));
       setFavorites(favoritePokemons)  // get the list of favorite pokemons from localStorage
     }
+
+    // get pokemon data
+    getPokemonList( setIsLoading ).then((pokemonList)=>{
+      setPokemonData(pokemonList);
+    });
   },[])
 
   const [ modalId, setModalId ] = useState(null)  // The id of the pokemon shown in the modal
@@ -141,42 +142,6 @@ const Homepage = (props) => {
 
   return (
     <div className="homepage" >
-      {/* <AppBar
-        position="static"
-        className={classes.appbar}
-      >
-        <Toolbar className={classes.toolbar}>
-          <Typography variant="h4" component="h1" className={classes.title} >
-            PokemonDic
-          </Typography>
-
-          <Typography component="div">
-              <Button
-                onClick={handleMenu}
-              >
-                My Favorites
-                <Star className={classes.stars} />
-              </Button>
-              <Menu
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={()=>{setShowFavorites(false);setAnchorEl(null)}}>Show all</MenuItem>
-                  <MenuItem onClick={()=>{setShowFavorites(true);setAnchorEl(null)}}>My favorites</MenuItem>
-                </Menu>
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
       <header className="navbar">
         <div className="navbar__inner">
           <a  className="navbar__inner__title" href='/'>
@@ -245,10 +210,12 @@ const Homepage = (props) => {
           <CircularProgress />
         )
       }
-      <Pokemon
+      { 
+        modalId !==null && <Pokemon
         modalId={modalId}
         setModalId={setModalId}
       />
+      }
     </div>
   )
 }

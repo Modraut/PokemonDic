@@ -20,9 +20,10 @@ export const showThreeDigits = (number) => {
           }
 *
 */
+
 export const getPokemonList = async ( setIsLoading )=>{
 
-  const results = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10').then(res=> res.data.results);
+  const results = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=50`).then(res=> res.data.results);
   let promises = [];
   const pokemonList =[];
   results.forEach((pokemon, index)=>{
@@ -43,6 +44,11 @@ export const getPokemonList = async ( setIsLoading )=>{
 
   return pokemonList
 }
+/**
+ * @param: { response from the API, pokemon id}
+ * @returns: { attach: ***, hp: ***, ... }
+ * 
+ * **/
 
 const getStatsFromRes = (res, index) => {
   const stats = {}

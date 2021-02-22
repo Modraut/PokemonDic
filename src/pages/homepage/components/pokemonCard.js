@@ -20,37 +20,6 @@ const PokemonCard = ( props ) => {
   const { id, name, stats } = pokemon;
   const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
-  // const toggleExpansion = ( element, to, duration = 0.35 ) => {
-  //   return new Promise(res => {
-  //     requestAnimationFrame(()=>{
-  //       element.style.transition = `
-  //       width ${duration}s east-in-out,
-  //       height ${duration}s east-in-out,
-  //       left ${duration}s east-in-out,
-  //       top ${duration}s east-in-out,
-  //       `
-  //       element.style.top = 0
-  //       element.style.left = 0
-  //       element.style.width = '100vw'
-  //       element.style.height = '100vh'
-  //     })
-  //     setTimeout(res, duration)
-  //   })
-  // }
-  // const expandCard = async (e) => {
-  //   const card = e.currentTarget;
-  //   const cardClone = card.cloneNode(true)
-  //   card.parentNode.appendChild(card)
-  //   const { top, left, width, height } = card.getBoundingClientRect();
-  //   cardClone.style.position = 'fixed';
-  //   cardClone.style.top = top + 'px';
-  //   cardClone.style.left = left + 'px';
-  //   cardClone.style.width = width + 'px';
-  //   cardClone.style.height = height + 'px';
-  //   card.style.opacity= '0'
-  //   card.parentNode.appendChild(card)
-  // }
-  // const index = showThreeDigits(id)
   return (
     <Fragment>
       <Grid 
