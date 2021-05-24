@@ -8,20 +8,19 @@ import Homepage from 'pages/homepage/homepage.js';
 import Pokemon from 'pages/homepage/components/pokemon.js';
 
 
-export default function App(){
-  return(
+export default function App() {
+  return (
     <div id="root">
-        <Router>
-          <Switch>
-            <Redirect exact from="/" to="/home" />
-            <Route exact path="/home" component={Homepage} />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Homepage} />
 
-          </Switch>
+        </Switch>
 
-        </Router>
+      </Router>
 
     </div>
-    
+
   )
 }
 
